@@ -1,0 +1,15 @@
+---
+# app service
+apiVersion: v1
+kind: Service
+metadata:
+  name: bggapp-svc
+  labels:
+    name: bggapp-svc
+spec:
+  type: LoadBalancer
+  selector:
+    name: bggapp-pod
+  ports:
+  - port: 80
+    targetPort: bggapp-port
