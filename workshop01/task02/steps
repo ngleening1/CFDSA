@@ -1,0 +1,20 @@
+# Create network
+docker network create appnet
+
+# Create volume
+docker volume create db-vol
+
+# Launch northwind mySQL DB into appnet
+docker run -d --name nwdb \
+    --network appnet \
+    -v db-vol:/var/lib/msql \
+    stackupiss/northwind-db:v1
+
+# Create the northwind app into appnet
+docker run -d --name nwapp \
+    --network appnet \
+    -e DB_HOST=nwdb \
+    -e DB_USER=root \
+    -e DB_PASSWORD=changeit \
+    -p 8080:3000 \
+    stackupiss/northwind-app:v1
