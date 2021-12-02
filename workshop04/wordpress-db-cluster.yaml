@@ -1,0 +1,22 @@
+---
+apiVersion: mysql.presslabs.org/v1alpha1
+kind: MysqlCluster
+metadata:
+   name: wpdb-mysql
+   labels:
+      name: wpdb-mysql
+spec:
+   replicas: 1
+   secretName: wpdb-secret
+   mysqlVersion: "5.7"
+
+---
+apiVersion: mysql.presslabs.org/v1alpha1
+kind: MysqlDatabase
+metadata:
+   name: wpdb
+spec:
+   database: wpdb
+   clusterRef:
+      name: wpdb-mysql
+      namespace: wpns
